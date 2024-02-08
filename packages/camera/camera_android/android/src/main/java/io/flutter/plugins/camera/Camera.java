@@ -1225,7 +1225,7 @@ class Camera
     imageStreamReader.subscribeListener(this.captureProps, imageStreamSink, backgroundHandler);
   }
 
-  void closeCaptureSession() {
+  synchronized void closeCaptureSession() {
     if (captureSession != null) {
       Log.i(TAG, "closeCaptureSession");
 
@@ -1234,7 +1234,7 @@ class Camera
     }
   }
 
-  public void close() {
+  public synchronized void close() {
     Log.i(TAG, "close");
 
     stopAndReleaseCamera();
@@ -1256,7 +1256,7 @@ class Camera
     stopBackgroundThread();
   }
 
-  private void stopAndReleaseCamera() {
+  private synchronized void stopAndReleaseCamera() {
     if (cameraDevice != null) {
       cameraDevice.close();
       cameraDevice = null;
